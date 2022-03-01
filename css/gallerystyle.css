@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+
+
+
+
+/*GALLERY デコレーション*/
+h1 {
+    position: relative;
+    transform: translate(-50px -50px);
+    display: inline-block;
+    padding: 0 55px;
+
+  }
+  
+  h1:before, h1:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    width: 45px;
+    height: 1px;
+    background-color: black;
+  }
+  
+  h1:before {
+    left:0;
+  }
+  h1:after {
+    right: 0;
+  }
+/*gallery.htmlの設定*/
+.conteiner{
+    max-width: 1080px;
+    margin-left: auto;    /*これで真ん中による よく使う*/
+    margin-right: auto;
+}
+
+ul{
+    width: 960px;
+}
+
+ul li{
+    float: left;
+    list-style-type: none;
+}
+
+ul li img{
+    border:0;
+    margin: 6px 10px;
+    padding: 0px;
+    width: 300px;
+    height: 212px;
+    text-align: center;
+}
+
+ul::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+html,body,main{
+    height: 100%;
+}
+
+#glay_layer{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.60;
+}
+
+
+
+#over_layer{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -217px;
+    margin-left: -325px;
+    height: 434px;
+    width: 650px;
+}

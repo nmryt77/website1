@@ -1,0 +1,303 @@
+@charset "utf-8";
+
+/*===========================================================*/
+/*プログレスバー＋数字カウントアップ＋画面が開く*/
+/*===========================================================*/
+
+/* Loading背景画面設定　親要素すべての大きさ*/
+#splash {
+    /*fixedで全面に固定*/
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 99999;
+	text-align:center;
+	color:#fff;
+}
+
+/* Loading画像中央配置　loadingとbar*/
+#splash_text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    z-index: 999;
+	transform: translate(-50%, -50%);
+	color: #fff;
+	width: 100%;
+}
+
+/*割れる画面のアニメーション 最初の画面*/
+.loader_cover {
+    width: 100%;
+    height: 50%;
+    background:black;
+    transition: all .2s cubic-bezier(.04, .900, .315, .9);/*property対象.duration.delay.function*/
+    transform: scaleY(1); /*消してもいい*/
+}
+/*上の画面*/
+.loader_cover-up {
+	position: absolute;                 /*追加*/
+    transform-origin: center top;
+}
+
+/*下の画面*/
+.loader_cover-down {
+    position: absolute;
+    bottom: 0;
+    transform-origin: center bottom;
+}
+/*クラス名がついたらY軸方向に0*/
+.coveranime {
+    transform: scaleY(0);
+}
+
+/*===========================================================*/
+/*グラデーション線から塗に変化する*/
+/*===========================================================*/
+
+.gradient4{
+    /*ボタンの形状*/
+    display: inline-block;
+    padding: 10px 60px;
+    margin: 20px 0 0 0;
+    border-radius:30px;    /*角をまるめる*/
+    text-decoration: none;    
+    border:1px solid #fff;
+    color: #fff;
+    /*ぼやーって出てくるようにアニメーションの設定*/ 
+    transition: all 0.4s ease-out;
+}
+
+#box3 .gradient4{
+    color: white;
+    border-color: white;
+}
+
+/*hoverした際、グラデーションと影を付ける*/
+.gradient4:hover,
+#box3 .gradient4:hover{
+    /*ボタンの形状*/
+    border-color:transparent;
+    color: white;
+    /*背景の色と形状*/
+    background: linear-gradient(270deg,#3bade3 0%, #9844b7 50%, #44ea76 100%);
+    background-size: 200% auto;
+    background-position: center;
+    /*ボックスの影*/   
+    box-shadow: 0 5px 10px rgb(250,108,159,0.4);
+}
+
+/*===========================================================*/
+/*ゆっくりズームアウトさせながら全画面で見せる*/
+/*===========================================================*/
+#slider {
+    width: 100%;
+    height: 100vh;/*スライダー全体の縦幅を画面の高さいっぱい（100vh）にする*/
+}
+
+/*===========================================================*/
+/*リンクをクリックすると、背景が暗くなり動画や画像やテキストを表示*/
+/*===========================================================*/
+
+.modaal-overlay{
+     background: linear-gradient(45deg,rgba(88,182,211,.9),rgba(229,93,135,.9))!important /*何のために書いたのかわからない*/
+}
+
+
+/*===========================================================*/
+/*サムネイルをクリックするとグループ化された画像一覧を表示する*/
+/*===========================================================*/
+
+/*===モーダル表示のためのcss　*/
+
+.hide-area{/*モーダル表示をする場所をあらかじめ隠す*/
+	display: none;
+}
+
+.modaal-fullscreen .modaal-content-container{/*full画面の色設定*/
+     background: linear-gradient(45deg,rgba(88,182,211,.9),rgba(229,93,135,.9)); /*45度で傾いたグラデーションで青からピンクに*/
+	color: #fff; /*文字の色*/
+	text-align: center;
+	min-height: 100%
+}
+
+.modaal-fullscreen .modaal-close{/*ボタンの色、位置*/
+	background:none; /*ボタンの背景色*/
+	right:20px; /*閉じるボタンの位置*/
+}
+
+/*クローズボタンの×の色変更*/
+.modaal-close:focus:after,
+.modaal-close:focus:before,
+.modaal-close:hover:after,
+.modaal-close:hover:before{
+	background:#666;
+}
+
+/*キャプション*/
+.caption{
+    display: block;
+    padding: 10px 0;
+}
+
+/*画像の横幅を100%にしてレスポンシブ化*/
+.modaal-content-container img{
+    border: 5px solid #fff;
+    width:100%;
+	max-width:700px;
+	height:auto;
+	vertical-align: bottom;/*画像の下にできる余白を削除*/
+}
+
+/*===========================================================*/
+/*最低限おぼえておきたい動き*/
+/*===========================================================*/
+
+/*== 4-6　じわっ（ぼかしから出現） ==*/
+
+.blur{
+	animation-name: blurAnime;
+	animation-duration:3s;
+	animation-fill-mode:forwards;
+}
+
+@keyframes blurAnime{
+  from {
+	filter: blur(10px);
+	transform: scale(1.02);
+	opacity: 0;
+  }
+
+  to {
+	filter: blur(0);
+	transform: scale(1);
+	opacity: 1;
+  }
+}
+
+/* スクロールをしたら出現する要素にはじめに透過0を指定　*/
+ 
+.blurTrigger{
+    opacity: 0;
+}
+
+
+
+/*===========================================================*/
+/*テキストが1文字づつ出現*/
+/*===========================================================*/
+
+.eachTextAnime span{opacity: 0;}
+.eachTextAnime.appeartext span{ animation:text_anime_on 1s ease-out forwards; }
+@keyframes text_anime_on {
+	0% {opacity:0;}
+	100% {opacity:1;}
+}
+
+/*===========================================================*/
+/*スクロールすると1画面移動*/
+/*===========================================================*/
+.box{
+    padding: 40px;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+#box1{
+    background:url("../img/bg_02.jpg") no-repeat center; /*2画面目の写真*/
+    background-size: cover;
+}
+
+#box1.box{
+ justify-content: flex-start;
+}
+
+@media screen and (max-width:768px) { /*メディアクエリ 表示デバイスの最大幅が780pxの場合適用*/
+    #box1.box{
+     justify-content: center;
+    } 
+}
+
+#box2{
+    background:url("../img/bg_03.jpg") no-repeat center;
+    background-size: cover;
+}
+
+#box3{
+    background:url("../img/bg_04.jpg") no-repeat center;
+    background-size: cover;
+}
+
+#box4{
+    background:url("../img/bg_05.jpg") no-repeat center;
+    background-size: cover;
+}
+
+#box5{
+    background:url("../img/bg_06.jpg") no-repeat center;
+    background-size: cover;
+}
+
+/*========= ページネーションCSS ===============*/
+
+.pagination {
+	position:fixed;
+	right:20px;
+	top: 50%;
+  	transform: translateY(-50%);
+	font-size:1em;
+	z-index: 10;
+	list-style: none;
+}
+
+.pagination a {
+	display:block;
+	height:20px;
+	margin-bottom:5px;
+	color:#fff;
+	position:relative;
+	padding:4px;
+}
+
+.pagination a.active:after {
+	box-shadow:inset 0 0 0 5px;
+}
+
+.pagination a .hover-text {
+	position:absolute;
+	right:15px;
+	top:0;
+	opacity:0;
+	-webkit-transition: opacity 0.5s ease;
+	transition: opacity 0.5s ease;
+	padding-right: 15px;
+}
+
+.pagination a:hover .hover-text {
+	opacity: 1;
+}
+
+.pagination a:after {
+	-webkit-transition:box-shadow 0.5s ease;
+	transition:box-shadow 0.5s ease;
+	width:10px;
+	height:10px;
+	display: block;
+	border:1px solid;
+	border-radius:50%;
+	content:'';
+	position: absolute;
+	margin:auto;
+	top:0;
+	right:3px;
+	bottom:0;
+}
+
+@media screen and (max-width:768px) { 
+	.pagination a .hover-text{
+		display: none;
+	}	
+}
+
